@@ -38,6 +38,42 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    "Basketball Team": {
+        "description": "Competitive basketball team for interscholastic play",
+        "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 15,
+        "participants": ["james@mergington.edu"]
+    },
+    "Tennis Club": {
+        "description": "Tennis instruction and tournament preparation",
+        "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:00 PM",
+        "max_participants": 10,
+        "participants": ["sarah@mergington.edu", "alex@mergington.edu"]
+    },
+    "Art Studio": {
+        "description": "Painting, drawing, and sculpture techniques",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 16,
+        "participants": ["grace@mergington.edu"]
+    },
+    "Music Band": {
+        "description": "Perform in school band and concerts",
+        "schedule": "Mondays and Fridays, 3:45 PM - 4:45 PM",
+        "max_participants": 25,
+        "participants": ["lucas@mergington.edu", "ava@mergington.edu"]
+    },
+    "Debate Team": {
+        "description": "Develop argumentation and public speaking skills",
+        "schedule": "Tuesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 12,
+        "participants": ["natalie@mergington.edu"]
+    },
+    "Science Club": {
+        "description": "Explore STEM topics through hands-on experiments",
+        "schedule": "Thursdays, 3:30 PM - 4:45 PM",
+        "max_participants": 18,
+        "participants": ["ryan@mergington.edu", "mia@mergington.edu"]
     }
 }
 
@@ -50,6 +86,12 @@ def root():
 @app.get("/activities")
 def get_activities():
     return activities
+    @app.get("/activities/{activity_name}")
+    def get_activity(activity_name: str):
+        """Get details of a specific activity"""
+        if activity_name not in activities:
+            raise HTTPException(status_code=404, detail="Activity not found")
+        return activities[activity_name]
 
 
 @app.post("/activities/{activity_name}/signup")
